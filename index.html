@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Voyage</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+
+    <script>
+        // let lastScrollTop = 0;
+        // window.addEventListener("scroll", function() {
+        //     let topBar = document.getElementById("topBar");
+        //     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        //     if (currentScroll > lastScrollTop) {
+        //         topBar.style.top = "-50px";
+        //     } else {
+        //         topBar.style.top = "0";
+        //     }
+        //     lastScrollTop = currentScroll;
+        // });
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", function() {
+            let topBar = document.getElementById("topBar");
+            if (window.scrollY > 50) {
+                topBar.style.top = "-50px"; // Hides the top bar
+            } else {
+                topBar.style.top = "0"; // Shows the top bar when at the top
+            }
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+    const carousel = document.querySelector(".carousel");
+    const arrowBtns = document.querySelectorAll(".wrapper i");
+    const wrapper = document.querySelector(".wrapper");
+
+    const firstCard = carousel.querySelector(".card");
+    const firstCardWidth = firstCard.offsetWidth;
+
+    let isDragging = false,
+        startX,
+        startScrollLeft,
+        timeoutId;
+
+    const dragStart = (e) => { 
+        isDragging = true;
+        carousel.classList.add("dragging");
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    };
+
+    const dragging = (e) => {
+        if (!isDragging) return;
+    
+        // Calculate the new scroll position
+        const newScrollLeft = startScrollLeft - (e.pageX - startX);
+    
+        // Check if the new scroll position exceeds 
+        // the carousel boundaries
+        if (newScrollLeft <= 0 || newScrollLeft >= 
+            carousel.scrollWidth - carousel.offsetWidth) {
+            
+            // If so, prevent further dragging
+            isDragging = false;
+            return;
+        }
+    
+        // Otherwise, update the scroll position of the carousel
+        carousel.scrollLeft = newScrollLeft;
+    };
+
+    const dragStop = () => {
+        isDragging = false; 
+        carousel.classList.remove("dragging");
+    };
+
+    const autoPlay = () => {
+    
+        // Return if window is smaller than 800
+        if (window.innerWidth < 800) return; 
+        
+        // Calculate the total width of all cards
+        const totalCardWidth = carousel.scrollWidth;
+        
+        // Calculate the maximum scroll position
+        const maxScrollLeft = totalCardWidth - carousel.offsetWidth;
+        
+        // If the carousel is at the end, stop autoplay
+        if (carousel.scrollLeft >= maxScrollLeft) return;
+        
+        // Autoplay the carousel after every 2500ms
+        timeoutId = setTimeout(() => 
+            carousel.scrollLeft += firstCardWidth, 2500);
+    };
+
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);
+    wrapper.addEventListener("mouseenter", () => 
+        clearTimeout(timeoutId));
+    wrapper.addEventListener("mouseleave", autoPlay);
+
+    // Add event listeners for the arrow buttons to 
+    // scroll the carousel left and right
+    arrowBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            carousel.scrollLeft += btn.id === "left" ? 
+                -firstCardWidth : firstCardWidth;
+        });
+    });
+});
+
+    </script>
+</head>
+<body>
+    <div class="top-bar" id="topBar">
+        <span>📧 chardham@uttarakhanddmc.org | 📍 Uttarakhand DMC - Tour and Travel,Rd,Ajabpur Khurd,Dehradun, Uttarakhand 248121(India) <img src="" alt=""></span>
+    </div>
+    <header class="navbar">
+        <div class="logo"><img src="Untitled-2.png" alt=""></div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About Us</a>
+            <a href="#">Destinations</a>
+            <a href="#">Why Choose Us</a>
+            <a href="#">Terms And Conditions</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div class="contact">📞CONTACT NO.</div>
+        <div class="payment">PAYMENT</div>
+    </header>
+    <section>
+        <section class="hero">
+            <h1 class="title">Seamless Travel,<br> Unforgettable Memories</h1>
+            <p class="sub">Trusted by 1300+ families | 1000+ Successful Trips </p>
+            
+           
+     
+            <button class="enquire-btn"><b>Plan your trip today!!</b></button>
+            <blockquote><i class="review" style="font-family:verdana"><The response & behavior of the team was quick and appreciable. <br> Hotels & accommodations provided were hygienic, <br>and food was fresh & hot during the Holy Yatra." – Prabin Singh</i></blockquote>
+        </section>
+        <section class="dest"><b>Uttar<u>akhand Destina</u>tions</b> </section>
+        
+        <section class="packages">
+            
+            <div class="wrapper">
+                <i id="left" class="fa-solid  fas fa-angle-left"></i>
+                <ul class="carousel">
+                    <li class="card">
+                        <div class="img"><img src="image.jpg"
+                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">
+                              Kausani
+                          </h2>
+                        <span>Book now</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src=
+        "image copy 2.png"
+                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">Dodhaam yatra</h2>
+                        <span>Book now</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src=
+        "1000_F_79017846_xyJ9midYFT7P1zfpGkneIE0TfyZgESb2.jpg" 
+                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">Chaardhaam yatra</h2>
+                        <span>Book now</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="wmremove-transformed.png"
+                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">Auli</h2>
+                        <span>Book now</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="WhatsApp Image 2025-03-29 at 10.31.03_31df6d1d.jpg"                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">Nainital with Kaichidhaam</h2>
+                        <span>Book now</span>
+                    </li>
+                    <li class="card">
+                        <div class="img"><img src="WhatsApp Image 2025-03-29 at 21.33.12_dfcbc24e.jpg"
+                                              alt="" draggable="false"> </div>
+                        <h2 style="color: rgba(255,76,21,255); font-weight:bold;">Delhi-Corbett-Delhi</h2>
+                        <span>Book now</span>
+                    </li>
+                </ul>
+                <i id="right" class="fa-solid fas fa-angle-right"></i>
+            </div>
+        </section>
+        <section class="tour-section">
+            <div class="tour-container">
+                <div class="tour-image">
+                    <img src="image2.jpg" alt="Scenic Temple View">
+                </div>
+                <div class="tour-content">
+                    <h2>Welcome to Uttarakhand DMC <br>  Your Journey, Our Passion
+                        !</h2>
+                    <p>
+                        At Uttarakhand DMC (स्वर्ग यहीं है), we believe travel isn’t just about destinations—it’s about seamless experiences, heartfelt connections, and unforgettable memories. <br> <br>
+
+Founded in 2012 by Ms. Jaishree Rawat, a hospitality expert with 20+ years of experience, we specialize in hassle-free Uttarakhand travel—from adventure getaways to spiritual Char Dham Yatras. Whether you're a solo traveler, a family, or a tour operator, we ensure every journey is effortless, enriching, and truly unforgettable.
+                    </p>
+                    <ul class="tour-highlights">
+                        <li><span>✔</span> <strong>100%</strong> Safety & Trust</li>
+                        <li><span>✔</span> <strong>1000+</strong> Successful Trips</li>
+                        <li><span>✔</span> <strong>1390+</strong> Happy Clients</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="testimonials">
+            <div class="responsive-container-block big-container">
+                <div class="responsive-container-block bg">
+                  <p class="text-blk title">
+                    <u>Customer Testimonials</u>
+                  </p>
+                  <!-- <p class="text-blk desc">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit massa ante viverra non maecenas. Faucibus amet quis duis egestas.
+                  </p> -->
+                  <div class="responsive-container-block blocks">
+                    <div class="responsive-cell-block wk-desk-1 wk-tab-1 wk-mobile-1 wk-ipadp-1 content">
+                      <p class="text-blk info-block">
+                       " I recently went on a 2 Dham Yatra of Kedarnath and Uttarakhand and had my travel and stay arranged through Uttarakhand DMC. My overall experience was AWESOME! They took care of every detail, from cab services to hotel stays, ensuring a comfortable and worry-free journey.
+                        
+                        I would highly recommend Uttarakhand DMC for the best travel experience—leave your worries to them and enjoy your journey! Looking forward to more such travels in the future."                      </p>
+                      <div class="responsive-container-block person">
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 icon-block">
+                          <img class="profile-img" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/eourInstructors1.svg">
+                        </div>
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 text-block">
+                          <p class="text-blk name">
+                            Pushkar Singh
+                          </p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="responsive-cell-block wk-desk-1 wk-tab-1 wk-mobile-1 wk-ipadp-1 content">
+                      <p class="text-blk info-block">
+                        "Our Chardham Yatra with Uttarakhand DMC was incredibly well-organized and seamless. From planning to execution, everything was managed with great professionalism.
+
+                        A special mention to Mr. Veenit (organizer) and the Enjoy with Destinations team, whose quick response and excellent behavior made our experience even better. The hotels and accommodations were hygienic and comfortable, and the food was fresh and warm throughout our journey."
+                      </p>
+                      <div class="responsive-container-block person">
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 icon-block">
+                          <img class="profile-img" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/eourInstructors1.svg">
+                        </div>
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 text-block">
+                          <p class="text-blk name">
+                            Prabhin Singh
+                          </p>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="responsive-cell-block wk-desk-1 wk-tab-1 wk-mobile-1 wk-ipadp-1 content bottom">
+                      <p class="text-blk info-block">
+                        "This was our first trip and the itinerary was very challenging but Malkit and his team had taken care of everything from the scratch and handled it so well. All the services were on time and excellent and process was really smooth. Very impressed with the professional behaviour and personal care for our itinerary. They are best in domestic tour services. I would highly recommend them for all kind of travellers."
+                      </p>
+                      <div class="responsive-container-block person">
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 icon-block">
+                          <img class="profile-img" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/eourInstructors1.svg">
+                        </div>
+                        <div class="responsive-cell-block wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12 text-block">
+                          <p class="text-blk name">
+                            Gunjan Verma
+                          </p>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+            </div>  
+        </section>
+        </div>
+        
+        
+    </main>
+    <!-- <div class="follow"> follow us on <i class="fa-brands fa-instagram"></i></div> -->
+    <footer class="footer">
+        <div class="footer-section">
+            <h3>Soul Voyage - Tour and Travel</h3>
+            <p>Rd,Ajabpur Khurd,Dehradun, Uttarakhand 248121(India)</p>
+            <p>📞 9968078569/9810954040/7827288814/9999801148</p>
+            <p>✉️ <a href="mailto:soulvoyageindia@gmail.com">soulvoyageindia@gmail.com</a></p>
+            <div class="social-icons">
+                <a href="#" class="instagram">📷</a>
+                <a href="#" class="youtube">▶️</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Useful Links</h3>
+            <a href="#">About Us</a>
+            <a href="#">Destinations</a>
+            <a href="#">Terms and Conditions</a>
+            <a href="#">Why Choose Us</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-section">
+            <h3>Destinations</h3>
+            <p>Bali, Vietnam, Dubai, Thailand, Malaysia, Singapore</p>
+            <p>Europe, Kerala, Andaman, Maldives</p>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        © Copyright Soul Voyage 2016. A Unit of Galaxy Ventures Pvt. Ltd. All Rights Reserved. Powered by - Go For Solution
+    </div>
+    <a href="https://wa.me/YOUR_NUMBER" class="whatsapp-button" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+    <a href="#" class="chatbot-button">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Chatbot_logo.png" alt="Chatbot">
+    </a>
+</body>
+</html>
